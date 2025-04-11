@@ -1,13 +1,23 @@
 from django.contrib import admin
-from django.urls import path
-from myapp.views import test_view, html_view, post_list_view, post_detail_view
-from django.conf.urls.static import static
+from django.urls import path, include
+from myapp.views import test_view, html_view, post_list_view, post_detail_view, PostListView, PostDetailView
 from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    
+    path('admin/', admin.site.urls),
+
+    
+    path('', include('myapp.urls')),
+
+
     path("test/", test_view),
     path("html/", html_view),
-    path("posts/", post_list_view),
-    path("posts/<int:post_id>/", post_detail_view),
+    path("posts/", post_list_view), 
+    path("posts/<int:post_id>/", post_detail_view, name='post_detail'),
+
+
+    path("api/posts/", PostListView.as_view(), name='api_post_list'),
+    path("api/posts/<int:pk>/", PostDetailView.as_view(), name='api_post_detail'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
