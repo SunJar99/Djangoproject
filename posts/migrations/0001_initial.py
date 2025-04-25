@@ -35,8 +35,8 @@ class Migration(migrations.Migration):
                 ('rate', models.IntegerField(default=0)),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
                 ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('Category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, to='myapp.category')),
-                ('tags', models.ManyToManyField(to='myapp.tag')),
+                ('Category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, to='posts.category')),
+                ('tags', models.ManyToManyField(to='posts.tag')),
             ],
         ),
     ]

@@ -9,12 +9,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     
-    path('', include('myapp.urls')),
+    path('', include('posts.urls')),
 
 
     path("test/", test_view),
     path("html/", html_view),
-    path("posts/", post_list_view), 
+    path("posts/", post_list_view, name='post_list'), 
     path("posts/<int:post_id>/", post_detail_view, name='post_detail'),
     path('items/', item_list_view, name='item_list'),
 
