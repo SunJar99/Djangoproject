@@ -17,5 +17,7 @@
         <a href="/posts/{{ post.id }}/" class="btn btn-primary">Go to post</a>
     </div>
 </div>
+{% empty %}
+<p>No posts available.</p>
 {% endfor %}
 {% endblock %}

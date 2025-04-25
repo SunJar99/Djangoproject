@@ -25,7 +25,7 @@ def item_list_view(request):
 def post_list_view(request):
     if request.method == "GET":
         posts = Post.objects.all()
-        return render(request, "posts/post_list.html", context={"posts": posts})
+        return render(request, "posts/post_list.html", {"posts": posts})
 
 
 @login_required(login_url="/users/login/")
@@ -64,3 +64,15 @@ def post_update_view(request, post_id):
         if tags:
             post.tags.set(tags)  # Ensure tags are updated only if provided
         return redirect("/posts/")
+    
+@login_required(login_url="/login/")
+def post_delete_view(request, post_id):
+    post = Post.objects.filter(id=post_id, author=request.user).first()
+    if not post:
+        return HttpResponseForbidden("403 Forbidden")
+
+    if request.method == "POST":
+        post.delete()
+        return redirect("/posts/")
+    
+    return render(request, "posts/post_delete.html", {"post": post})
